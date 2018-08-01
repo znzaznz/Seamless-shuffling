@@ -11,84 +11,58 @@
       margin: 0;
       padding: 0;
     }
-    .show{
+    .all{
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
     }
-    ul{
-      margin: 20px;
-      list-style: none;
+    .show{
+      margin-top: 20px;
       width: 300px;
       height: 200px;
       overflow: hidden;
-      display: flex;
-      position: relative;
-      top: 0px;
-      left: 0px;
     }
-    li{
-      position: absolute;
-      left: 0;
+    ul{
       transition: all 2s;
+      list-style: none;
+      display: flex;
     }
     img{
       width: 300px;
       height: 200px;
     }
-    .right{
-      transform: translateX(100%);
-    }
-    .left{
-      transform: translateX(-100%); 
-      z-index: 1;
-    }
-    .onshow{
-      transform: translateX(0%);
-      z-index: 1;
-    }
   </style>
 </head>
 <body>
-  <div class="show">
-    <ul>
-      <li><img src="slideshow/images.jpg" alt="图片1"></li>
-      <li><img src="slideshow/下载 (1).jpg" alt="图片2"></li>
-      <li><img src="slideshow/下载 (2).jpg" alt="图片3"></li>
-      <li><img src="slideshow/下载.jpg" alt="图片4"></li>
-    </ul>
-    <div class="change">
-        <button class="start">开始</button>
-        <button class="stop">结束</button>
-    </div>
+  <div class="all">
+      <div class="show">
+          <ul>
+            <li><img src="slideshow/images.jpg" alt="图片1"></li>
+            <li><img src="slideshow/下载 (1).jpg" alt="图片2"></li>
+            <li><img src="slideshow/下载 (2).jpg" alt="图片3"></li>
+            <li><img src="slideshow/下载.jpg" alt="图片4"></li>
+            <li><img src="slideshow/images.jpg" alt="图片1"></li>
+          </ul>
+        </div>
   </div>
  
   <script>
-    let lunbo = null;
-    $("li").addClass("right").eq(0).removeClass("left").addClass("onshow")
-    $(".start").on("click",()=>{
-      lunbo = setInterval(()=>{
-          let num = $(".onshow").index();
-          if(num === 3){
-            nextnum = 0;
-            slide.call(undefined,num,nextnum);
-          }else{
-            slide.call(undefined,num,num+1);
-          } 
-      },2000)})
-      $(".stop").on("click",()=>{
-        window.clearInterval(lunbo);
-      })
-
-
-      function slide(num,nextnum){
-        $("li").eq(num).removeClass("onshow").addClass("left");
-          $("li").eq(nextnum).removeClass("right").addClass("onshow");
-          $("li").eq(num).one("transitionend",()=>{
-          $("li").eq(num).removeClass("left").addClass("right");
-          })  
-      }
+    let num = 1;
+   setInterval(()=>{
+    if(num === 5){
+      $("ul").css({transform:"translateX("+num*(-300)+"px)"})
+      num =1;
+      $("ul").hide().offset();
+      $("ul").css({transform:"none"}).show();
+      console.log(num)
+      $("ul").css({transform:"translateX("+num*(-300)+"px)"})
+      console.log(num)
+     }else{
+      $("ul").css({transform:"translateX("+num*(-300)+"px)"})
+     }
+     num++
+   },2000)
   </script>
 </body>
 </html>
